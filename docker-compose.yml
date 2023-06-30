@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  cassandraconsoleapp:
+    image: ${DOCKER_REGISTRY-}cassandraconsoleapp
+    build:
+      context: .
+      dockerfile: CassandraConsoleApp/Dockerfile
+    depends_on:
+      - "cassandra"
+
+  cassandra:
+    image: cassandra:latest
+    ports:
+      - 9042:9042
+    volumes:
+      - ~/apps/cassandra:/var/lib/cassandra
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cloudinfra
